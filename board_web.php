@@ -246,13 +246,40 @@ elseif(!empty($delete_id) && $delete=='削除'){
                 <?php
                 if($row['is_edited']==FALSE){
                     //編集歴なし
-                    echo "<p class='header'>".$row['id'].": ".$row['name']." ".$row['time']."</p>";
-                    echo "<p class = 'comment'>".nl2br($row['comment']).'</p>';
+                    //情報部分表示
+                    echo "<p class='header'>".$row['id'].": ".
+                        htmlspecialchars(
+                            $row['name'],
+                            ENT_QUOTES | ENT_SUBSTITUTE,
+                            'UTF-8'
+                        )
+                        ." ".$row['time']."</p>";
+                    //コメント表示
+                    echo "<p class = 'comment'>".
+                    nl2br(
+                        htmlspecialchars(
+                            $row['comment'],
+                            ENT_QUOTES | ENT_SUBSTITUTE,
+                            'UTF-8')
+                    )
+                    .'</p>';
                 }
                 else{
                     //編集歴あり
-                    echo "<p class='header'>".$row['id'].": ".$row['name']."(編集済み) ".$row['time']."</p>";
-                    echo "<p class = 'comment'>".nl2br($row['comment']).'</p>';
+                    echo "<p class='header'>".$row['id'].": ".
+                        htmlspecialchars(
+                            $row['name'],
+                            ENT_QUOTES | ENT_SUBSTITUTE,
+                            'UTF-8'
+                        )
+                        .'(編集済み)'." ".$row['time']."</p>";
+                    echo "<p class = 'comment'>".
+                    nl2br(
+                        htmlspecialchars(
+                            $row['comment'],
+                            ENT_QUOTES | ENT_SUBSTITUTE,
+                            'UTF-8')
+                    ).'</p>';
                 }
                 //削除・編集ボタン表示
                 if($row['user_id'] == $user_id){?>
